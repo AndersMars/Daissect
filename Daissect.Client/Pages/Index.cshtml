@@ -1,0 +1,38 @@
+﻿@page "/"
+@using Daissect.Shared
+
+@inject Daissect.Client.Services.DataService data
+
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@foreach (var repository in Repositories)
+{
+    <div class="card mb-3">
+        <div class="card-header text-white bg-primary">Header</div>
+        <div class="card-body">
+            <a href="#">@repository.Address</a>
+        </div>
+    </div>
+    //Använd en komponent här, typ:
+    //<RepositoryItem repository="@repository" />
+}
+
+@functions {
+
+List<Repository> Repositories = new List<Repository>();
+
+    protected override async Task OnInitAsync()
+    {
+        Repositories = await GetRepositories();
+    }
+
+    protected async Task<List<Repository>> GetRepositories()
+    {
+        return await data.GetRepositories();
+    }
+}

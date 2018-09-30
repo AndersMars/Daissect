@@ -7,7 +7,7 @@ using Newtonsoft.Json.Serialization;
 using System.Linq;
 using System.Net.Mime;
 
-namespace Daisect.Server
+namespace Daissect.Server
 {
     public class Startup
     {

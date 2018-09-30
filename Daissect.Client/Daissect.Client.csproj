@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Daisect.Shared\Daisect.Shared.csproj" />
+    <ProjectReference Include="..\Daissect.Shared\Daissect.Shared.csproj" />
   </ItemGroup>
 
 </Project>

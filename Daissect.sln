@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisect.Server", "Daisect.Server\Daisect.Server.csproj", "{E3702287-2166-4ADA-B108-3147B63BF415}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Daissect.Server", "Daissect.Server\Daissect.Server.csproj", "{E3702287-2166-4ADA-B108-3147B63BF415}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisect.Client", "Daisect.Client\Daisect.Client.csproj", "{0C5C5DFD-F3B5-45D7-A0DD-8472B2496B04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Daissect.Client", "Daissect.Client\Daissect.Client.csproj", "{0C5C5DFD-F3B5-45D7-A0DD-8472B2496B04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisect.Shared", "Daisect.Shared\Daisect.Shared.csproj", "{095DA8CF-9441-40F6-9B7A-A947A700554C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Daissect.Shared", "Daissect.Shared\Daissect.Shared.csproj", "{095DA8CF-9441-40F6-9B7A-A947A700554C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

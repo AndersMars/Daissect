@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Blazor.Hosting;
 
-namespace Daisect.Client
+namespace Daissect.Client
 {
     public class Program
     {

@@ -11,8 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Daisect.Client\Daisect.Client.csproj" />
-    <ProjectReference Include="..\Daisect.Shared\Daisect.Shared.csproj" />
+    <ProjectReference Include="..\Daissect.Client\Daissect.Client.csproj" />
+    <ProjectReference Include="..\Daissect.Shared\Daissect.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ServiceClients\Interfaces\" />
   </ItemGroup>
 
 </Project>

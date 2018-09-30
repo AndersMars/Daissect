@@ -1,4 +1,4 @@
-﻿using Daisect.Shared;
+﻿using Daissect.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

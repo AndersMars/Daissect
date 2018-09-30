@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace Daisect.Server
+namespace Daissect.Server
 {
     public class Program
     {

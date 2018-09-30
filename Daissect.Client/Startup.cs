@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Blazor.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Daissect.Client.Services;
 
-namespace Daisect.Client
+namespace Daissect.Client
 {
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<DataService>();
         }
 
         public void Configure(IBlazorApplicationBuilder app)

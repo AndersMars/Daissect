@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Daisect.Shared
+namespace Daissect.Shared
 {
     public class WeatherForecast
     {
