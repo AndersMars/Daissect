@@ -20,12 +20,8 @@ namespace Daissect.Server.Controllers
             };
 
             return repositories;
-
         }
-            
-            
-
-       
+         
         [HttpGet("[action]")]
         public IEnumerable<Repository> GetRepositories()
         {
