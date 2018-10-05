@@ -121,3 +121,35 @@ app {
         display: block;
     }
 }
+
+#editor {
+    /*position: absolute;*/
+    height: 300px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.foo {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-left: 0px;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.blue {
+    background: #13b4ff;
+}
+
+.purple {
+    background: #ab3fdd;
+}
+
+.wine {
+    background: #ae163e;
+}

@@ -12,12 +12,22 @@
     <app>Loading...</app>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.8.30/go-debug.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="scripts/ace/ace.js"></script>
 </body>
 </html>
 
 <script>
     function triggerGoJs() {
+
+        initAce();
+
         init();
+    }
+
+    function initAce() {
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/javascript");
     }
 
     function init() {
