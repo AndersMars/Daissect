@@ -1,0 +1,59 @@
+﻿<div class="simple-list">
+
+    <label for="username">Repository</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">https://</span>
+        </div>
+        <input bind="@newItem" placeholder="github.com/AndersMars/Daissect.git" required />
+        @*<input type="text" class="form-control" id="username" placeholder="github.com/AndersMars/Daissect.git" required>*@
+        <div class="input-group-append">
+            <button onclick="@AddItem" class="btn btn-secondary">Add</button>
+        </div>
+        <div class="invalid-feedback" style="width: 100%;">
+            Your username is required.
+        </div>
+    </div>
+
+    @*<div class="simple-list-header">
+        <h1>Simple List</h1>
+
+        <input bind="@newItem" placeholder="Enter item to add to list" />
+        <button onclick="@AddItem">Add Item</button>
+    </div>*@
+
+    <div class="simple-list-list">
+
+        @if (!listItems.Any())
+        {
+            <p>You have no items in your list</p>
+        }
+        else
+        {
+            <ul>
+                @foreach (var item in listItems)
+                {
+                    <li>@item</li>
+                }
+            </ul>
+        }
+    </div>
+
+</div>
+
+
+@functions {
+
+private List<string> listItems = new List<string>();
+private string newItem;
+
+private void AddItem()
+{
+    if (string.IsNullOrEmpty(newItem))
+        return;
+
+    listItems.Add(newItem);
+    newItem = "";
+}
+
+}
