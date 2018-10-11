@@ -22,7 +22,7 @@
                 <span class="text-muted">Your cart</span>
                 <span class="badge badge-secondary badge-pill">3</span>
             </h4>
-            <ConciseList></ConciseList>
+            <ConciseList listItems="@RepoStrings" ></ConciseList>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex lh-condensed">
                     <div>
@@ -210,11 +210,16 @@
 
 @functions {
 
-List<Repository> Repositories = new List<Repository>();
+    List<Repository> Repositories = new List<Repository>();
+    List<String> RepoStrings = new List<String>();
 
     protected override async Task OnInitAsync()
     {
         Repositories = await GetRepositories();
+        RepoStrings = Repositories.Select(a => a.Address).ToList();
+
+        await JSRuntime.Current.InvokeAsync<bool>("triggerGoJs", null);
+
     }
 
     protected async Task<List<Repository>> GetRepositories()

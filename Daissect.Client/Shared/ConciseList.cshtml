@@ -44,16 +44,19 @@
 
 @functions {
 
-private List<string> listItems = new List<string>();
-private string newItem;
+    [Parameter]
+    private List<string> listItems { get; set; }
 
-private void AddItem()
-{
-    if (string.IsNullOrEmpty(newItem))
-        return;
+    //private List<string> listItems = new List<string>();
+    private string newItem;
 
-    listItems.Add(newItem);
-    newItem = "";
-}
+    private void AddItem()
+    {
+        if (string.IsNullOrEmpty(newItem))
+            return;
+
+        listItems.Add(newItem);
+        newItem = "";
+    }
 
 }
