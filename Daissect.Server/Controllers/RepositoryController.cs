@@ -14,9 +14,10 @@ namespace Daissect.Server.Controllers
         {
             var repositories = new List<Repository>()
             {
-                new Repository() { Address = "github.com/aspnet/Blazor.git"},
-                new Repository() { Address = "github.com/aspnet/Home.git"},
-                new Repository() { Address = "github.com/ai/marzbarz.git"}
+                new Repository() { Address = "github.com/aspnet/Blazor.git", Color = "blue" },
+                new Repository() { Address = "github.com/aspnet/Home.git", Color = "yellow"  },
+                new Repository() { Address = "github.com/ai/marzbarz.git",  Color = "green" },
+                new Repository() { Address = "gitlab/andersmars.com/thelab.git",  Color = "red" }
             };
 
             return repositories;

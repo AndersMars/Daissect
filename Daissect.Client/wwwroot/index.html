@@ -18,10 +18,10 @@
 
 <script>
     function triggerGoJs() {
-
         initAce();
-
         init();
+
+        return true;
     }
 
     function initAce() {
@@ -99,10 +99,10 @@
                 },
                 new go.Binding("background", "isHighlighted", function (h) { return h ? "rgba(255,0,0,0.2)" : "transparent"; }).ofObject(),
                 $(go.Shape, "Rectangle",
-                    { fill: null, stroke: "#FFDD33", strokeWidth: 2 }),
+                    { fill: null, stroke: "#ecf516", strokeWidth: 2 }),
                 $(go.Panel, "Vertical",  // title above Placeholder
                     $(go.Panel, "Horizontal",  // button next to TextBlock
-                        { stretch: go.GraphObject.Horizontal, background: "#FFDD33" },
+                        { stretch: go.GraphObject.Horizontal, background: "#ecf516" },
                         $("SubGraphExpanderButton",
                             { alignment: go.Spot.Right, margin: 5 }),
                         $(go.TextBlock,
@@ -144,10 +144,10 @@
                 },
                 new go.Binding("background", "isHighlighted", function (h) { return h ? "rgba(255,0,0,0.2)" : "transparent"; }).ofObject(),
                 $(go.Shape, "Rectangle",
-                    { fill: null, stroke: "#33D3E5", strokeWidth: 2 }),
+                    { fill: null, stroke: "#11e128", strokeWidth: 2 }),
                 $(go.Panel, "Vertical",  // title above Placeholder
                     $(go.Panel, "Horizontal",  // button next to TextBlock
-                        { stretch: go.GraphObject.Horizontal, background: "#33D3E5" },
+                        { stretch: go.GraphObject.Horizontal, background: "#11e128" },
                         $("SubGraphExpanderButton",
                             { alignment: go.Spot.Right, margin: 5 }),
                         $(go.TextBlock,
@@ -172,7 +172,7 @@
                     mouseDrop: function (e, nod) { finishDrop(e, nod.containingGroup); }
                 },
                 $(go.Shape, "Rectangle",
-                    { fill: "#ACE600", stroke: null },
+                    { fill: "#13b4ff", stroke: null },
                     new go.Binding("fill", "color")),
                 $(go.TextBlock,
                     {

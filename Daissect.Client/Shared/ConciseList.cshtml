@@ -1,53 +1,45 @@
-﻿<div class="simple-list">
+﻿@using Daissect.Shared
 
-    <label for="username">Repository</label>
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">https://</span>
-        </div>
-        <input bind="@newItem" placeholder="github.com/AndersMars/Daissect.git" required />
-        @*<input type="text" class="form-control" id="username" placeholder="github.com/AndersMars/Daissect.git" required>*@
-        <div class="input-group-append">
-            <button onclick="@AddItem" class="btn btn-secondary">Add</button>
-        </div>
-        <div class="invalid-feedback" style="width: 100%;">
-            Your username is required.
+<div class="simple-list">
+    <div class="mb-3">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">https://</span>
+            </div>
+            <input id="newItem" class="form-control" bind="@newItem" placeholder="github.com/AndersMars/Daissect.git" required />
+            <div class="input-group-append">
+                <button onclick="@AddItem" class="btn btn-secondary">Add</button>
+            </div>
+            <div class="invalid-feedback" style="width: 100%;">
+                Enter a valid address for a repository.
+            </div>
         </div>
     </div>
-
-    @*<div class="simple-list-header">
-        <h1>Simple List</h1>
-
-        <input bind="@newItem" placeholder="Enter item to add to list" />
-        <button onclick="@AddItem">Add Item</button>
-    </div>*@
-
-    <div class="simple-list-list">
-
-        @if (!listItems.Any())
-        {
-            <p>You have no items in your list</p>
-        }
-        else
-        {
-            <ul>
-                @foreach (var item in listItems)
-                {
-                    <li>@item</li>
-                }
-            </ul>
-        }
-    </div>
-
+    @if (!listItems.Any())
+    {
+        <p>You have no items in your list</p>
+    }
+    else
+    {
+        <ul class="list-group mb-3">
+            @foreach (var item in listItems)
+            {
+                <li class="list-group-item d-flex lh-condensed">
+                    <div>
+                        <p style="margin-bottom: 0px"><div class="foo @item.Color"></div> <a href="#">@item.Address</a></p>
+                        <small class="text-muted">Brief description</small>
+                    </div>
+                    @*<span class="text-muted">$12</span>*@
+                </li>
+            }
+        </ul>
+    }
 </div>
 
-
 @functions {
-
     [Parameter]
-    private List<string> listItems { get; set; }
+    private List<Repository> listItems { get; set; }
 
-    //private List<string> listItems = new List<string>();
     private string newItem;
 
     private void AddItem()
@@ -55,8 +47,7 @@
         if (string.IsNullOrEmpty(newItem))
             return;
 
-        listItems.Add(newItem);
+        listItems.Add(new Repository() { Address = newItem, Color = "black" }  );
         newItem = "";
     }
-
 }

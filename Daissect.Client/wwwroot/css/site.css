@@ -146,8 +146,20 @@ app {
     background: #13b4ff;
 }
 
-.purple {
-    background: #ab3fdd;
+.red {
+    background: #fa0808;
+}
+
+.yellow {
+    background: #ecf516;
+}
+
+.green {
+    background: #11e128;
+}
+
+.black {
+    background: #3a0647
 }
 
 .wine {

@@ -5,12 +5,12 @@
 <div class="container">
     <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="images/iKnow.png" asp-append-version="true" alt="" width="72" height="72">
-        <h2>dAIssect <span style="font-size: smaller; color: dimgray"><i>- A GitHub AI exploration thing</i></span> </h2>
-        <p class="lead">Start template for a GitHub interaction tool. Implementing a cloud solution and applying reinforcement learning togheter with AI. Built on Blazor, APS.NET Core, Bootstrap 4 and GitHub Rest API v3.</p>
+        <h2>dAIssect <span style="font-size: smaller; color: dimgray"><i>- A repository exploration thing</i></span> </h2>
+        <p class="lead">First implementation of a repository discovery tool. Analyzes a set of repositories and visualizes hierarchies and dependencies in an interactive chart. Applying reinforcement learning togheter with AI. Built on Blazor, APS.NET Core, Bootstrap 4 and GitHub Rest API v3.</p>
     </div>
     <div class="row">
         <div class="col-md-5 order-md-2 mb-4">
-            <label>Code</label>
+            <label>content Loupe</label>
             <div id="editor">
                 <pre>function foo(items) {
     var x = "All this is syntax highlighted";
@@ -22,7 +22,9 @@
                 <span class="text-muted">Your cart</span>
                 <span class="badge badge-secondary badge-pill">3</span>
             </h4>
-            <ConciseList listItems="@RepoStrings" ></ConciseList>
+            
+            
+            
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex lh-condensed">
                     <div>
@@ -71,10 +73,7 @@
                 </button>
             </div>
             <div class="alert alert-warning" role="alert">
-                @*<a href="#" class="alert-link"></a>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>*@
+
                 <div class="progress">
                     <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Loading github.com/Microsoft/ai.git...</div>
                 </div>
@@ -93,75 +92,25 @@
 
         </div>
         <div class="col-md-7 order-md-1">
-            @*<h4 class="mb-3">Repository</h4>*@
-            <form class="needs-validation" novalidate>
-               <div class="mb-3">
-                    <label for="username">Repository</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">https://</span>
-                        </div>
-                        <input type="text" class="form-control" id="username" placeholder="github.com/AndersMars/Daissect.git" required>
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary">Add</button>
-                        </div>
-                        <div class="invalid-feedback" style="width: 100%;">
-                            Your username is required.
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-header bg-light">Header</div>
-                    <div class="card-body">
-                        @*<p class="card-text">github.com/aspnet/Blazor.git</p>*@
-                        <a href="#">github.com/aspnet/Blazor.git</a>
-                    </div>
-                </div>
 
-                <div class="mb-3">
-                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
-                    </div>
+            <div class="row">
+                <div class="col-md-12" style="margin-bottom: 10px">
+                    <label for="repositorySet">Repositories</label>
+                    <select id="repositorySet" class="form-control">
+                        <option>Select a repository set</option>
+                        <option>Daissect - A repository exploration thing</option>
+                        <option>MarsCom - Enterprice repository collection</option>
+                    </select>
                 </div>
-                <hr class="mb-4">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="same-address">
-                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ConciseList listItems="@Repositories" />
                 </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="save-info">
-                    <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                </div>
-                <hr class="mb-4">
-
-                <h4 class="mb-3">Repositories dependency</h4>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-name">Name on card</label>
-                        <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                        <small class="text-muted">Full name as displayed on card</small>
-                        <div class="invalid-feedback">
-                            Name on card is required
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-number">Credit card number</label>
-                        <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Credit card number is required
-                        </div>
-                    </div>
-                </div>
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-            </form>
-            <button onclick="triggerGoJs()">Try this</button>
+            </div>
 
             <div id="myPaletteDiv" hidden="hidden" style="width: 100px; margin-right: 2px; background-color: whitesmoke; border: solid 1px black"></div>
-            <div id="myDiagramDiv" style="border: solid 1px black; width:730px; height:350px"></div>
+            <div id="myDiagramDiv" style="border: solid 1px black; width:630px; height:350px"></div>
 
             <textarea id="mySavedModel" hidden="hidden" style="width:100%;height:300px">{ "class": "go.GraphLinksModel",
   "nodeDataArray": [
@@ -185,28 +134,16 @@
   "linkDataArray": [  ]}
   </textarea>
         </div>
-    </div>
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2018 Anders Mars Consulting</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Privacy</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
-    </footer>
-</div>
-
-@*@foreach (var repository in Repositories)
-{
-    <div class="card mb-3">
-        <div class="card-header text-white bg-primary">Header</div>
-        <div class="card-body">
-            <a href="#">@repository.Address</a>
+            </div>
+            <footer class="my-5 pt-5 text-muted text-center text-small">
+                <p class="mb-1">&copy; 2018 Anders Mars Consulting</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">Privacy</a></li>
+                    <li class="list-inline-item"><a href="#">Terms</a></li>
+                    <li class="list-inline-item"><a href="#">Support</a></li>
+                </ul>
+            </footer>
         </div>
-    </div>
-    //Använd en komponent här, typ:
-    //<RepositoryItem repository="@repository" />
-}*@
 
 @functions {
 
@@ -216,14 +153,17 @@
     protected override async Task OnInitAsync()
     {
         Repositories = await GetRepositories();
-        RepoStrings = Repositories.Select(a => a.Address).ToList();
-
-        await JSRuntime.Current.InvokeAsync<bool>("triggerGoJs", null);
-
+        await InitializeJavascripts();
     }
 
     protected async Task<List<Repository>> GetRepositories()
     {
         return await data.GetRepositories();
     }
+
+    protected async Task InitializeJavascripts()
+    {
+        await JSRuntime.Current.InvokeAsync<bool>("triggerGoJs");
+    }
+
 }
