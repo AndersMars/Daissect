@@ -1,15 +1,24 @@
-﻿using System;
+﻿using Daissect.Shared;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Daissect.Shared
+namespace Daissect.Server.Controllers
 {
-    public class Repository
+    [Route("api/[controller]")]
+    public class CodeController : Controller
     {
-        public string Address { get; set; }
-        public string Description { get; set; }
-        public string Color { get; set; }
-        public string Code { get; set; } = @"using Daissect.Shared;
+        [HttpGet("[action]")]
+        public string GetCode()
+        {
+            return MyCode();
+        }
+
+        private static string MyCode()
+        {
+            string code = @"using Daissect.Shared;
 using Microsoft.AspNetCore.Blazor;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -32,5 +41,7 @@ namespace Daissect.Client.Services
         }
     }
 }";
+            return code;
+        }
     }
 }

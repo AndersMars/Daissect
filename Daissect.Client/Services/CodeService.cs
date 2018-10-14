@@ -8,19 +8,20 @@ using System.Net.Http;
 
 namespace Daissect.Client.Services
 {
-    
-    public class DataService
+    public class CodeService
     {
         private readonly HttpClient _http;
 
-        public DataService(HttpClient http)
+        public CodeService(HttpClient http)
         {
             _http = http;
         }
 
-        public async Task<List<Repository>> GetRepositories()
+        public async Task<string> GetCode()
         {
-            return await _http.GetJsonAsync<List<Repository>>($"/api/Repository/GetRepositories");
+            //return "this is some code";
+
+            return await _http.GetJsonAsync<string>($"/api/Code/GetCode");
         }
     }
 }

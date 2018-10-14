@@ -1,105 +1,38 @@
 ﻿@page "/"
 @using Daissect.Shared
-@inject Daissect.Client.Services.DataService data
+@inject Daissect.Client.Services.RepositoryService repositoryService
+@inject Daissect.Client.Services.CodeService codeService
 
 <div class="container">
     <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="images/iKnow.png" asp-append-version="true" alt="" width="72" height="72">
         <h2>dAIssect <span style="font-size: smaller; color: dimgray"><i>- A repository exploration thing</i></span> </h2>
-        <p class="lead">First implementation of a repository discovery tool. Analyzes a set of repositories and visualizes hierarchies and dependencies in an interactive chart. Applying reinforcement learning togheter with AI. Built on Blazor, APS.NET Core, Bootstrap 4 and GitHub Rest API v3.</p>
+        <p class="lead">Analyzes a set of repositories and visualizes hierarchies and dependencies in an interactive chart. Applying reinforcement learning togheter with AI. Built on Blazor, APS.NET Core, Bootstrap 4 and GitHub Rest API v3.</p>
     </div>
     <div class="row">
-        <div class="col-md-5 order-md-2 mb-4">
-            <label><span class="oi oi-magnifying-glass"></span> Loupe</label>
+        <div class="col-md-6 order-md-2 mb-4">
+            @*<ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><span class="oi oi-magnifying-glass"/> Code loupe</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><span class="oi oi-terminal"/> Terminal</a>
+                    </li>
+                </ul>*@
+            <label><span class="oi oi-magnifying-glass"></span> Code loupe</label>
             <div id="editor">
-                <pre>function foo(items) {
-    var x = "All this is syntax highlighted";
-    return x;
-}</pre>
+                <pre>string cSharp;</pre>
             </div>
-            <br />
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Your cart</span>
-                <span class="badge badge-secondary badge-pill">3</span>
-            </h4>
-            
-            
-            
-            <ul class="list-group mb-3">
-                <li class="list-group-item d-flex lh-condensed">
-                    <div>
-                        <p><div class="foo blue"></div> <a href="#">github.com/aspnet/Blazor.git</a></p>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    @*<span class="text-muted">$12</span>*@
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Second product</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$8</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Third item</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$5</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between bg-light">
-                    <div class="text-success">
-                        <h6 class="my-0">Promo code</h6>
-                        <small>EXAMPLECODE</small>
-                    </div>
-                    <span class="text-success">-$5</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>$20</strong>
-                </li>
-            </ul>
-
-            <div class="alert alert-primary" role="alert">
-                <a href="#" class="alert-link">github.com/aspnet/Blazor.git</a>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="alert alert-info" role="alert">
-                <a href="#" class="alert-link">github.com/aspnet/Home.git</a>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="alert alert-warning" role="alert">
-
-                <div class="progress">
-                    <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Loading github.com/Microsoft/ai.git...</div>
-                </div>
-            </div>
-
-            <form class="card p-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-secondary">Redeem</button>
-                    </div>
-                </div>
-            </form>
-
             @*<partial name="~/Shared/_Diagram.cshtml"></partial>*@
-
         </div>
-        <div class="col-md-7 order-md-1">
-
+        <div class="col-md-6 order-md-1">
             <div class="row">
                 <div class="col-md-12" style="margin-bottom: 10px">
                     <label for="repositorySet">Repositories</label>
                     <select id="repositorySet" class="form-control">
                         <option>Select a repository set</option>
                         <option>Daissect - A repository exploration thing</option>
-                        <option>MarsCom - Enterprice repository collection</option>
+                        <option>MarsCom - Enterprise repository collection</option>
                     </select>
                 </div>
             </div>
@@ -108,62 +41,85 @@
                     <ConciseList listItems="@Repositories" />
                 </div>
             </div>
-
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
             <div id="myPaletteDiv" hidden="hidden" style="width: 100px; margin-right: 2px; background-color: whitesmoke; border: solid 1px black"></div>
-            <div id="myDiagramDiv" style="border: solid 1px black; width:630px; height:350px"></div>
-
+            <div id="myDiagramDiv" style="border: solid 1px black; width:1110px; height:350px"></div>
             <textarea id="mySavedModel" hidden="hidden" style="width:100%;height:300px">{ "class": "go.GraphLinksModel",
   "nodeDataArray": [
-{"key":1, "text":"Main 1", "isGroup":true, "category":"OfGroups"},
-{"key":2, "text":"Main 2", "isGroup":true, "category":"OfGroups"},
-{"key":3, "text":"Group A", "isGroup":true, "category":"OfNodes", "group":1},
-{"key":4, "text":"Group B", "isGroup":true, "category":"OfNodes", "group":1},
-{"key":5, "text":"Group C", "isGroup":true, "category":"OfNodes", "group":2},
-{"key":6, "text":"Group D", "isGroup":true, "category":"OfNodes", "group":2},
-{"key":7, "text":"Group E", "isGroup":true, "category":"OfNodes", "group":6},
-{"text":"first A", "group":3, "key":-7},
-{"text":"second A", "group":3, "key":-8},
-{"text":"first B", "group":4, "key":-9},
-{"text":"second B", "group":4, "key":-10},
-{"text":"third B", "group":4, "key":-11},
-{"text":"first C", "group":5, "key":-12},
-{"text":"second C", "group":5, "key":-13},
-{"text":"first D", "group":6, "key":-14},
-{"text":"first E", "group":7, "key":-15}
- ],
+{"key":1, "text":"Daissect", "isGroup":true, "category":"OfGroups"},
+{"key":2, "text":"Mars.Cognitive.Services", "isGroup":true, "category":"OfGroups"},
+{"key":3, "text":"Daissect.Client", "isGroup":true, "category":"OfNodes", "group":1},
+{"key":4, "text":"Daissect.Server", "isGroup":true, "category":"OfNodes", "group":1},
+{"key":5, "text":"Daissect.Shared", "isGroup":true, "category":"OfNodes", "group":1},
+{"key":6, "text":"ReinforcedLearning", "isGroup":true, "category":"OfNodes", "group":2},
+{"key":7, "text":"PerceptiveServices", "isGroup":true, "category":"OfNodes", "group":2},
+{"key":8, "text":"DeepThought", "isGroup":true, "category":"OfNodes", "group":2},
+{"key":9, "text":"Daissect.Client.Services", "isGroup":true, "category":"OfNodes", "group":3},
+{"key":10, "text":"Pages", "isGroup":true, "category":"OfNodes", "group":3},
+{"key":11, "text":"Daissect.Server.Controllers", "isGroup":true, "category":"OfNodes", "group":4},
+{"text":"Index.cshtml", "group":10, "key":-7},
+{"text":"_ViewImports.cshtml", "group":10, "key":-8},
+{"text":"RepositoryService.cs", "group":9, "key":-9},
+{"text":"Program.cs", "group":4, "key":-10},
+{"text":"Startup.cs", "group":4, "key":-11},
+{"text":"StochasticOptimization.cs", "group":6, "key":-14},
+{"text":"BruteForce.cs", "group":6, "key":-15},
+{"text":"RepositoryController.cs", "group":11, "key":-16},
+{"text":"Repository.cs", "group":5, "key":-17},
+{"text":"LunkwillFook.cs", "group":8, "key":-18},
+{"text":"Psyche.cs", "group":7, "key":-19}
+],
   "linkDataArray": [  ]}
-  </textarea>
+            </textarea>
         </div>
-            </div>
-            <footer class="my-5 pt-5 text-muted text-center text-small">
-                <p class="mb-1">&copy; 2018 Anders Mars Consulting</p>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="#">Privacy</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Support</a></li>
-                </ul>
-            </footer>
-        </div>
+    </div>
+    <footer class="my-5 pt-5 text-muted text-center text-small" style="padding-top: 0px">
+        <p class="mb-1">&copy; 2018 Anders Mars Consulting</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+</div>
 
 @functions {
 
     List<Repository> Repositories = new List<Repository>();
     List<String> RepoStrings = new List<String>();
+    //string Code = "";
 
     protected override async Task OnInitAsync()
     {
+        //var sfd = await codeService.GetCode();
+
         Repositories = await GetRepositories();
-        await InitializeJavascripts();
+        //var code = await GetCode();
+        await InitializeJavascripts(Repositories.First().Code);
     }
 
     protected async Task<List<Repository>> GetRepositories()
     {
-        return await data.GetRepositories();
+        return await repositoryService.GetRepositories();
     }
 
-    protected async Task InitializeJavascripts()
+    //protected async Task<string> GetCode()
+    //{
+    //    return await codeService.GetCode();
+    //}
+
+    protected async Task InitializeJavascripts(string code)
     {
-        await JSRuntime.Current.InvokeAsync<bool>("triggerGoJs");
+        await JSRuntime.Current.InvokeAsync<bool>("triggerJavascripts", code);
     }
+
+    //protected async Task SetAceCode(string code)
+    //{
+    //    await JSRuntime.Current.InvokeAsync<bool>("setAceCode", code);
+    //}
 
 }

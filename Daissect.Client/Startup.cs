@@ -8,7 +8,8 @@ namespace Daissect.Client
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<DataService>();
+            services.AddSingleton<RepositoryService>();
+            services.AddSingleton<CodeService>();
         }
 
         public void Configure(IBlazorApplicationBuilder app)
