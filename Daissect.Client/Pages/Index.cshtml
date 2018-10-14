@@ -21,7 +21,7 @@
                 </ul>*@
             <label><span class="oi oi-magnifying-glass"></span> Code loupe</label>
             <div id="editor">
-                <pre>string cSharp;</pre>
+                <pre></pre>
             </div>
             @*<partial name="~/Shared/_Diagram.cshtml"></partial>*@
         </div>
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-12" style="margin-bottom: 10px">
                     <label for="repositorySet">Repositories</label>
-                    <select id="repositorySet" class="form-control">
+                    <select id="repositorySet" class="form-control" onchange="@RepositorySetChanged">
                         <option>Select a repository set</option>
                         <option>Daissect - A repository exploration thing</option>
                         <option>MarsCom - Enterprise repository collection</option>
@@ -50,8 +50,8 @@
             <div id="myDiagramDiv" style="border: solid 1px black; width:1110px; height:350px"></div>
             <textarea id="mySavedModel" hidden="hidden" style="width:100%;height:300px">{ "class": "go.GraphLinksModel",
   "nodeDataArray": [
-{"key":1, "text":"Daissect", "isGroup":true, "category":"OfGroups"},
-{"key":2, "text":"Mars.Cognitive.Services", "isGroup":true, "category":"OfGroups"},
+{"key":1, "text":"Daissect", "isGroup":true, "category":"OfGroups", "background":"#13b4ff"},
+{"key":2, "text":"Mars.Cognitive.Services", "isGroup":true, "category":"OfGroups", "background":"#ecf516"},
 {"key":3, "text":"Daissect.Client", "isGroup":true, "category":"OfNodes", "group":1},
 {"key":4, "text":"Daissect.Server", "isGroup":true, "category":"OfNodes", "group":1},
 {"key":5, "text":"Daissect.Shared", "isGroup":true, "category":"OfNodes", "group":1},
@@ -73,8 +73,8 @@
 {"text":"LunkwillFook.cs", "group":8, "key":-18},
 {"text":"Psyche.cs", "group":7, "key":-19}
 ],
-  "linkDataArray": [  ]}
-            </textarea>
+  "linkDataArray": [{"from": 1, "to": 2}] }
+             </textarea>
         </div>
     </div>
     <footer class="my-5 pt-5 text-muted text-center text-small" style="padding-top: 0px">
@@ -91,14 +91,19 @@
 
     List<Repository> Repositories = new List<Repository>();
     List<String> RepoStrings = new List<String>();
-    //string Code = "";
-
+ 
     protected override async Task OnInitAsync()
+    {
+        await SetAceCode("Ready to analyze.");
+    }
+
+    public async Task RepositorySetChanged(UIChangeEventArgs e)
     {
         //var sfd = await codeService.GetCode();
 
-        Repositories = await GetRepositories();
+        //Repositories = await GetRepositories();
         //var code = await GetCode();
+        Repositories = await GetRepositories();
         await InitializeJavascripts(Repositories.First().Code);
     }
 
@@ -117,9 +122,9 @@
         await JSRuntime.Current.InvokeAsync<bool>("triggerJavascripts", code);
     }
 
-    //protected async Task SetAceCode(string code)
-    //{
-    //    await JSRuntime.Current.InvokeAsync<bool>("setAceCode", code);
-    //}
+    protected async Task SetAceCode(string code)
+    {
+        await JSRuntime.Current.InvokeAsync<bool>("initAce", code);
+    }
 
 }

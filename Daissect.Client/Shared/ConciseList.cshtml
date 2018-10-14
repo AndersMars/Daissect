@@ -6,7 +6,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">https://</span>
             </div>
-            <input id="newItem" class="form-control" bind="@newItem" placeholder="github.com/AndersMars/Daissect.git" required />
+            <input id="newItem" class="form-control" bind="@newItem" placeholder="github.com/Account/Repository.git" required />
             <div class="input-group-append">
                 <button onclick="@AddItem" class="btn btn-secondary">Add</button>
             </div>
@@ -26,7 +26,7 @@
             {
                 <li class="list-group-item d-flex lh-condensed">
                     <div>
-                        <p style="margin-bottom: 0px"><div class="foo @item.Color"></div> <a href="#">@item.Address</a></p>
+                        <p style="margin-bottom: 0px"><div class="foo @item.Color"></div> <a target="_blank" href="https://@item.Address">@item.Address</a></p>
                         <small class="text-muted">@item.Description</small>
                     </div>
                     @*<span class="text-muted">$12</span>*@

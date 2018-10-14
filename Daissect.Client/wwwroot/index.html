@@ -31,12 +31,6 @@
         return true;
     }
 
-    function setAceCode(codeString) {
-        alert(codeString);
-        editor.setValue(codeString);
-        return true;
-    }
-
     function initGoJs() {
 
         var $ = go.GraphObject.make;
@@ -106,10 +100,10 @@
                 },
                 new go.Binding("background", "isHighlighted", function (h) { return h ? "rgba(255,0,0,0.2)" : "transparent"; }).ofObject(),
                 $(go.Shape, "Rectangle",
-                    { fill: null, stroke: "#13b4ff", strokeWidth: 2 }),
+                    { fill: null, strokeWidth: 2 }, new go.Binding("stroke","background")),
                 $(go.Panel, "Vertical",  // title above Placeholder
                     $(go.Panel, "Horizontal",  // button next to TextBlock
-                        { stretch: go.GraphObject.Horizontal, background: "#13b4ff" },
+                        { stretch: go.GraphObject.Horizontal }, new go.Binding("background","background"),
                         $("SubGraphExpanderButton",
                             { alignment: go.Spot.Right, margin: 5 }),
                         $(go.TextBlock,
@@ -191,6 +185,28 @@
                     },
                     new go.Binding("text", "text").makeTwoWay())
             );
+
+        // The link shape and arrowhead have their stroke brush data bound to the "color" property
+        //myDiagram.linkTemplate =
+        //    $(go.Link,
+        //        { toShortLength: 3, relinkableFrom: true, relinkableTo: true },  // allow the user to relink existing links
+        //        $(go.Shape,
+        //            { strokeWidth: 2 },
+        //            new go.Binding("stroke", "color")),
+        //        $(go.Shape,
+        //            { toArrow: "Standard", stroke: null },
+        //            new go.Binding("fill", "color")),
+        //        { // this tooltip Adornment is shared by all links
+        //            toolTip:
+        //                $(go.Adornment, "Auto",
+        //                    $(go.Shape, { fill: "#FFFFCC" }),
+        //                    $(go.TextBlock, { margin: 4 },  // the tooltip shows the result of calling linkInfo(data)
+        //                        new go.Binding("text", "", linkInfo))
+        //                ),
+        //            // the same context menu Adornment is shared by all links
+        //            contextMenu: partContextMenu
+        //        }
+        //    );
 
         // initialize the Palette and its contents
         myPalette =
