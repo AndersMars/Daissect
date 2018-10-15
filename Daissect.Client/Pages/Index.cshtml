@@ -7,7 +7,7 @@
     <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="images/iKnow.png" asp-append-version="true" alt="" width="72" height="72">
         <h2>dAIssect <span style="font-size: smaller; color: dimgray"><i>- A repository exploration thing</i></span> </h2>
-        <p class="lead">Analyzes a set of repositories and visualizes hierarchies and dependencies in an interactive chart. Applying reinforcement learning togheter with AI. Built on Blazor, APS.NET Core, Bootstrap 4 and GitHub Rest API v3.</p>
+        <p class="lead">Analyzes repositories and visualizes hierarchies and dependencies in an interactive chart. Applying reinforcement learning. Built on Blazor, APS.NET Core, Bootstrap 4 and GitHub Rest API v3.</p>
     </div>
     <div class="row">
         <div class="col-md-6 order-md-2 mb-4">
@@ -47,20 +47,26 @@
     <div class="row">
         <div class="col-md-12">
             <div id="myPaletteDiv" hidden="hidden" style="width: 100px; margin-right: 2px; background-color: whitesmoke; border: solid 1px black"></div>
-            <div id="myDiagramDiv" style="border: solid 1px black; width:1110px; height:350px"></div>
+            <div id="myDiagramDiv" style="border: solid 1px black; width:1110px; height:500px"></div>
+            <p><input class="form-control" id="levelSlider" type="range" min="0" max="5" value="3"></p>
             <textarea id="mySavedModel" hidden="hidden" style="width:100%;height:300px">{ "class": "go.GraphLinksModel",
   "nodeDataArray": [
 {"key":1, "text":"Daissect", "isGroup":true, "category":"OfGroups", "background":"#13b4ff"},
 {"key":2, "text":"Mars.Cognitive.Services", "isGroup":true, "category":"OfGroups", "background":"#ecf516"},
+{"key":12, "text":"Mars.Platform", "isGroup":true, "category":"OfGroups", "background":"#11e128"},
 {"key":3, "text":"Daissect.Client", "isGroup":true, "category":"OfNodes", "group":1},
 {"key":4, "text":"Daissect.Server", "isGroup":true, "category":"OfNodes", "group":1},
 {"key":5, "text":"Daissect.Shared", "isGroup":true, "category":"OfNodes", "group":1},
+{"key":8, "text":"DeepThought", "isGroup":true, "category":"OfNodes", "group":2},
 {"key":6, "text":"ReinforcedLearning", "isGroup":true, "category":"OfNodes", "group":2},
 {"key":7, "text":"PerceptiveServices", "isGroup":true, "category":"OfNodes", "group":2},
-{"key":8, "text":"DeepThought", "isGroup":true, "category":"OfNodes", "group":2},
 {"key":9, "text":"Daissect.Client.Services", "isGroup":true, "category":"OfNodes", "group":3},
 {"key":10, "text":"Pages", "isGroup":true, "category":"OfNodes", "group":3},
 {"key":11, "text":"Daissect.Server.Controllers", "isGroup":true, "category":"OfNodes", "group":4},
+{"key":15, "text":"..ServiceClients", "isGroup":true, "category":"OfNodes", "group":4},
+{"key":16, "text":"Mars.Platform (submodule)", "isGroup":true, "category":"OfNodes", "group":4, "background":"#11e128"},
+{"key":13, "text":"Requests", "isGroup":true, "category":"OfNodes", "group":12},
+{"key":14, "text":"Responses", "isGroup":true, "category":"OfNodes", "group":12},
 {"text":"Index.cshtml", "group":10, "key":-7},
 {"text":"_ViewImports.cshtml", "group":10, "key":-8},
 {"text":"RepositoryService.cs", "group":9, "key":-9},
@@ -69,11 +75,12 @@
 {"text":"StochasticOptimization.cs", "group":6, "key":-14},
 {"text":"BruteForce.cs", "group":6, "key":-15},
 {"text":"RepositoryController.cs", "group":11, "key":-16},
-{"text":"Repository.cs", "group":5, "key":-17},
+{"key":88,"text":"Repository.cs", "group":5, "key":-17},
 {"text":"LunkwillFook.cs", "group":8, "key":-18},
-{"text":"Psyche.cs", "group":7, "key":-19}
+{"text":"Psyche.cs", "group":7, "key":-19},
+{"text":"DeepThoughtServiceClient", "group":15, "key":-20}
 ],
-  "linkDataArray": [{"from": 1, "to": 2}] }
+  "linkDataArray": [{"from": 15, "to": 8, "text":"service calls"},{"from": 16, "to": 12,"text":"is submodule"}] }
              </textarea>
         </div>
     </div>
@@ -91,9 +98,11 @@
 
     List<Repository> Repositories = new List<Repository>();
     List<String> RepoStrings = new List<String>();
- 
+
     protected override async Task OnInitAsync()
     {
+        Repositories = await GetRepositories();
+        Repositories = new List<Repository>();
         await SetAceCode("Ready to analyze.");
     }
 
@@ -127,4 +136,26 @@
         await JSRuntime.Current.InvokeAsync<bool>("initAce", code);
     }
 
+    [JSInvokable]
+    public static Task<bool> DiagramObjectClicked(string key)
+    {
+        Console.WriteLine($"clicked '{key}'");
+
+        if (key == "5")
+        {
+            var code = @"namespace Daissect.Shared
+{
+    public class Repository
+    {
+        public string Address { get; set; }
+        public string Description { get; set; }
+        public string Color { get; set; }
+        public string Code { get; set; }
+    }
+}";
+            JSRuntime.Current.InvokeAsync<bool>("initAce", code);
+        }
+
+        return Task.FromResult(true);
+    }
 }

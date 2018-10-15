@@ -42,7 +42,8 @@
                     mouseDrop: function (e) { finishDrop(e, null); },
                     layout:  // Diagram has simple horizontal layout
                         $(go.GridLayout,
-                            { wrappingWidth: Infinity, alignment: go.GridLayout.Position, cellSize: new go.Size(1, 1) }),
+                            { wrappingWidth: 1100, alignment: go.GridLayout.Position, cellSize: new go.Size(1, 1) }),
+                            //{ wrappingWidth: Infinity, alignment: go.GridLayout.Position, cellSize: new go.Size(1, 1) }),
                     initialContentAlignment: go.Spot.Center,
                     "commandHandler.archetypeGroupData": { isGroup: true, category: "OfNodes" },
                     "undoManager.isEnabled": true
@@ -148,7 +149,7 @@
                     { fill: null, stroke: "#545252", strokeWidth: 2 }),
                 $(go.Panel, "Vertical",  // title above Placeholder
                     $(go.Panel, "Horizontal",  // button next to TextBlock
-                        { stretch: go.GraphObject.Horizontal, background: "#545252" },
+                        { stretch: go.GraphObject.Horizontal, background: "#545252" }, new go.Binding("background", "background"),
                         $("SubGraphExpanderButton",
                             { alignment: go.Spot.Right, margin: 5 }),
                         $(go.TextBlock,
@@ -187,6 +188,12 @@
             );
 
         // The link shape and arrowhead have their stroke brush data bound to the "color" property
+        myDiagram.linkTemplate =
+            $(  go.Link,       // the whole link panel
+                $(go.Shape),
+                $(go.Shape, { toArrow: "Standard" }),
+                $(go.TextBlock, new go.Binding("text", "text"))
+            );
         //myDiagram.linkTemplate =
         //    $(go.Link,
         //        { toShortLength: 3, relinkableFrom: true, relinkableTo: true },  // allow the user to relink existing links
@@ -222,9 +229,21 @@
             { text: "lightblue", color: "#33D3E5" }
         ]);
 
-        //var slider = document.getElementById("levelSlider");
-        //slider.addEventListener('change', reexpand);
-        //slider.addEventListener('input', reexpand);
+        var slider = document.getElementById("levelSlider");
+        slider.addEventListener('change', reexpand);
+        slider.addEventListener('input', reexpand);
+
+        //myDiagram.addDiagramListener("ChangedSelection",
+        //    function (e) {
+        //        var part = e.subject.part;
+        //        if (!(part instanceof go.Link)) showMessage("Clicked on " + part.data.key);
+        //    });
+        myDiagram.addDiagramListener("ObjectSingleClicked",
+            function (e) {
+                var part = e.subject.part;
+                if (!(part instanceof go.Link)) DotNet.invokeMethodAsync('Daissect.Client', 'DiagramObjectClicked', part.data.key.toString());
+                    //alert("Clicked on " + part.data.key);
+            });
 
         load();
     }
