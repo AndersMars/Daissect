@@ -109,8 +109,6 @@
     public async Task RepositorySetChanged(UIChangeEventArgs e)
     {
         //var sfd = await codeService.GetCode();
-
-        //Repositories = await GetRepositories();
         //var code = await GetCode();
         Repositories = await GetRepositories();
         await InitializeJavascripts(Repositories.First().Code);
